@@ -1,6 +1,7 @@
 package controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -71,7 +72,13 @@ public class HelloController {
     @RequestMapping(value = "/testArgs", params = {"name", "age"})
     public String testArgs(String name, Integer age) {
         System.out.println(name + ", " + age);
-        //return "redirect:../hello";
+        return "hello";
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/control/testCookie
+    @RequestMapping("/testCookie")
+    public String testCookie(@CookieValue("JSESSIONID") String sessionId) {
+        System.out.println("sessionId: " + sessionId);
         return "hello";
     }
     
