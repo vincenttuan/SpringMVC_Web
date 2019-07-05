@@ -40,7 +40,7 @@ public class HelloController {
     ** 可含有任意多層路徑 /testPaths/** -> /testPaths/aa/bb/cc
     ** 可含有任意多層路徑 /testPaths/ ** /ok -> /testPaths/aa/bb/cc/ok
     */
-    // http://localhost:8080/SpringWeb_MVC/mvc/testPaths
+    // http://localhost:8080/SpringWeb_MVC/mvc/control/testPaths
     @RequestMapping(value = "/testPaths")
     public String testPaths() {
         return "hello";
