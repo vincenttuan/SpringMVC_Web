@@ -3,6 +3,7 @@ package controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,6 +80,13 @@ public class HelloController {
     @RequestMapping("/testCookie")
     public String testCookie(@CookieValue("JSESSIONID") String sessionId) {
         System.out.println("sessionId: " + sessionId);
+        return "hello";
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/control/testHeader
+    @RequestMapping("/testHeader")
+    public String testHeader(@RequestHeader(value = "User-Agent") String userAgent) {
+        System.out.println("userAgent: " + userAgent);
         return "hello";
     }
     
