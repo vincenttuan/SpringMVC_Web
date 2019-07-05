@@ -33,11 +33,11 @@ public class HelloController {
     
     /*
     @RequestMapping(value = "路徑")
-    ?  匹配 1 個字符  /testPaths? -> /testPathsA
-    ?? 匹配 2 個字符  /testPaths?? -> /testPathsAA
-    *  匹配任意字符   /testPaths/* -> /testPathsABCDEFG
-    *  匹配任意字符   /testPaths/ * /ok -> /testPaths/ttt/ok
-    ** 可含有任意多層路徑 /testPaths/** -> /testPaths/aa/bb/cc
+    ?  匹配 1 個字符     /testPaths?       -> /testPathsA
+    ?? 匹配 2 個字符     /testPaths??      -> /testPathsAA
+    *  匹配任意字符      /testPaths/*       -> /testPathsABCDEFG
+    *  匹配任意字符      /testPaths/ * /ok  -> /testPaths/ttt/ok
+    ** 可含有任意多層路徑 /testPaths/**      -> /testPaths/aa/bb/cc
     ** 可含有任意多層路徑 /testPaths/ ** /ok -> /testPaths/aa/bb/cc/ok
     */
     // http://localhost:8080/SpringWeb_MVC/mvc/control/testPaths
