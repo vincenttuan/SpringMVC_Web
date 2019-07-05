@@ -61,4 +61,18 @@ public class HelloController {
         return "hello";
     }
     
+    /*
+        params = {"name", "age"}
+        params = {"name", "age!=10"}
+        params = {"!name", "age"}
+        params = {"name=aaa", "age=10"}
+    */
+    // http://localhost:8080/SpringMVC_Web/mvc/control/testArgs?name=aaa&age=10
+    @RequestMapping(value = "/testArgs", params = {"name", "age"})
+    public String testArgs(String name, Integer age) {
+        System.out.println(name + ", " + age);
+        //return "redirect:../hello";
+        return "hello";
+    }
+    
 }
