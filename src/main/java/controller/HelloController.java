@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/control")
@@ -45,4 +46,19 @@ public class HelloController {
     public String testPaths() {
         return "hello";
     }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/control/login?username=Java
+    @RequestMapping(value = "/login")
+    public String login(@RequestParam String username) {
+        System.out.println("login: " + username);
+        return "hello";
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/control/login2?realname=Java
+    @RequestMapping(value = "/login2")
+    public String login2(@RequestParam(name = "realname", defaultValue = "spring", required = false) String username) {
+        System.out.println("login: " + username);
+        return "hello";
+    }
+    
 }
