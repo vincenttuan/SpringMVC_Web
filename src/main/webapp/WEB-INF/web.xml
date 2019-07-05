@@ -9,4 +9,23 @@
             30
         </session-timeout>
     </session-config>
+    
+    <servlet>
+        <servlet-name>springMVC</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <!--
+              1. 在 Maven 中由於classpath不是指向resource路徑，需要在classpath後面加個 * 
+              2. springmvc 配置文件默認的名字 <servlet-name>-servlet.xml
+            -->
+            <param-value>classpath*:springMVC-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>springMVC</servlet-name>
+        <url-pattern>/mvc/*</url-pattern>
+    </servlet-mapping>
 </web-app>
