@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import vo.User;
 
 @Controller
 @RequestMapping("/user")
@@ -20,8 +21,8 @@ public class UserController {
     // http://localhost:8080/SpringMVC_Web/mvc/user/
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @ResponseBody
-    public String post() {
-        return "post";
+    public String post(User user) {
+        return "post:" + user;
     }
     
     // http://localhost:8080/SpringMVC_Web/mvc/user/
