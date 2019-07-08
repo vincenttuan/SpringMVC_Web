@@ -28,15 +28,15 @@ public class UserController {
     // http://localhost:8080/SpringMVC_Web/mvc/user/
     @RequestMapping(value = "/", method = RequestMethod.PUT)
     @ResponseBody
-    public String put() {
-        return "put";
+    public String put(User user) {
+        return "put:" + user;
     }
     
     // http://localhost:8080/SpringMVC_Web/mvc/user/
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
     @ResponseBody
-    public String delete() {
-        return "delete";
+    public String delete(User user) {
+        return "delete:" + user;
     }
     
 }

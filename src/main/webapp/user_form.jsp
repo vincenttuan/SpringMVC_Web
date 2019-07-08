@@ -18,7 +18,7 @@
         }
     </script>
     <body style="padding: 20px">
-        <form id="userForm" class="pure-form" method="post" action="http://localhost:8080/SpringMVC_Web/mvc/user/">
+        <form id="userForm" class="pure-form" method="post" action="http://localhost:8080/SpringMVC_Web/mvc/user/" target="myframe">
             <fieldset>
                 <legend>User form</legend>
                 <input type="hidden" name="_method" id="_method" value="post"> 
@@ -31,5 +31,7 @@
                 <button type="button" class="pure-button pure-button-primary" onclick="send('get')">Get</button>
             </fieldset>
         </form>
+        <iframe name="myframe" width="500" frameBorder="0"></iframe>
     </body>
+    
 </html>
