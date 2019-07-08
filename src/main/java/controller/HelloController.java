@@ -129,21 +129,15 @@ public class HelloController {
     
     // http://localhost:8080/SpringMVC_Web/mvc/control/calcBMI3?height=170.1&weight=60.5
     @RequestMapping("/calcBMI3")
-    public ModelAndView calcBMI3(Map<String, Object> map, BMI bmi) {
+    public String calcBMI3(Map<String, Object> map, BMI bmi) {
         double h = bmi.getHeight();
         double w = bmi.getWeight();
         double value = w / Math.pow(h/100, 2);
         bmi.setValue(value);
         
-        map.put("bmi_1", bmi);
-        map.put("bmi_2", bmi);
-        map.put("bmi_3", bmi);
-        System.out.println(map);
+        map.put("bmi", bmi);
         
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("bmi", map);
-        mv.setViewName("show_bmi_map");
-        return mv;
+        return "show_bmi";
     }
     
     // http://localhost:8080/SpringMVC_Web/mvc/control/calcBMI4?height=170.1&weight=60.5
