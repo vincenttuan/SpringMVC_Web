@@ -13,6 +13,5 @@
                 <button type="submit" class="pure-button pure-button-primary">Submit</button>
             </fieldset>
         </form>
-
     </body>
 </html>
