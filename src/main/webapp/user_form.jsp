@@ -25,10 +25,10 @@
                 <input type="text" placeholder="user name" name="uname" value="Vincent"><p>
                 <input type="text" placeholder="user age" name="uage" value="10"><p>
                 <input type="text" placeholder="num id" name="num.id" value="3"><p>
-                <button type="button" class="pure-button pure-button-primary" onclick="send('post')">POST</button>
-                <button type="button" class="pure-button pure-button-primary" onclick="send('put')">PUT</button>
-                <button type="button" class="pure-button pure-button-primary" onclick="send('delete')">Delete</button>
-                <button type="button" class="pure-button pure-button-primary" onclick="send('get')">Get</button>
+                <button type="button" class="pure-button pure-button-primary" onclick="send('post')">POST 新增</button>
+                <button type="button" class="pure-button pure-button-primary" onclick="send('put')">PUT 修改</button>
+                <button type="button" class="pure-button pure-button-primary" onclick="send('delete')">Delete 刪除</button>
+                <button type="button" class="pure-button pure-button-primary" onclick="send('get')">Get 查詢</button>
             </fieldset>
         </form>
         <iframe name="myframe" width="500" frameBorder="0"></iframe>
