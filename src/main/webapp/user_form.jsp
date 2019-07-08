@@ -5,12 +5,30 @@
         <title>User form</title>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
     </head>
+    <script>
+        function send(m) {
+            var userForm = document.getElementById('userForm');
+            if(m == 'get') {
+                userForm.method = 'get';
+            } else {
+                userForm.method = 'post';
+            }
+            document.getElementById('_method').value = m;
+            userForm.submit();
+        }
+    </script>
     <body style="padding: 20px">
-        <form class="pure-form" method="post" action="http://localhost:8080/SpringMVC_Web/mvc/user/">
+        <form id="userForm" class="pure-form" method="post" action="http://localhost:8080/SpringMVC_Web/mvc/user/">
             <fieldset>
                 <legend>User form</legend>
-                <input type="hidden" name="_method" value="delete">    
-                <button type="submit" class="pure-button pure-button-primary">Submit</button>
+                <input type="hidden" name="_method" id="_method" value="post"> 
+                <input type="text" placeholder="user name" name="uname" value="Vincent"><p>
+                <input type="text" placeholder="user age" name="uage" value="10"><p>
+                <input type="text" placeholder="num id" name="num.id" value="3"><p>
+                <button type="button" class="pure-button pure-button-primary" onclick="send('post')">POST</button>
+                <button type="button" class="pure-button pure-button-primary" onclick="send('put')">PUT</button>
+                <button type="button" class="pure-button pure-button-primary" onclick="send('delete')">Delete</button>
+                <button type="button" class="pure-button pure-button-primary" onclick="send('get')">Get</button>
             </fieldset>
         </form>
     </body>
