@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import vo.User;
+import org.springframework.web.servlet.ModelAndView;
+import vo.BMI;
 
 @Controller
 @RequestMapping("/control")
@@ -99,13 +100,29 @@ public class HelloController {
         return "hello";
     }
     
-    // http://localhost:8080/SpringMVC_Web/mvc/control/saveUser?username=john&password=1234
-    @RequestMapping("/saveUser")
-    public String saveUser(User user) {
-        System.out.println("username: " + user.getUsername());
-        System.out.println("password: " + user.getPassword());
-        System.out.println(user);
-        return "hello";
+    // http://localhost:8080/SpringMVC_Web/mvc/control/calcBMI?height=170.1&weight=60.5
+    @RequestMapping("/calcBMI")
+    public String calcBMI(BMI bmi) {
+        double h = bmi.getHeight();
+        double w = bmi.getWeight();
+        double value = w / Math.pow(h/100, 2);
+        bmi.setValue(value);
+        System.out.println(bmi);
+        return "show_bmi";
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/control/calcBMI2?height=170.1&weight=60.5
+    @RequestMapping("/calcBMI2")
+    public ModelAndView calcBMI2(BMI bmi) {
+        double h = bmi.getHeight();
+        double w = bmi.getWeight();
+        double value = w / Math.pow(h/100, 2);
+        bmi.setValue(value);
+        System.out.println(bmi);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("bmi", bmi);
+        mv.setViewName("show_bmi");
+        return mv;
     }
     
     
