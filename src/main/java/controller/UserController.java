@@ -35,7 +35,7 @@ public class UserController {
     public String put(User user) {
         int id = user.getNum().getId();
         list.stream()
-                .filter(u -> u.getNum().getId() == id)
+                .filter(u -> u.getNum().getId() == user.getNum().getId())
                 .forEach(u -> {
                     u.setUname(user.getUname());
                     u.setUage(user.getUage());
