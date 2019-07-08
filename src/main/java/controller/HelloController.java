@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import vo.User;
 
 @Controller
 @RequestMapping("/control")
@@ -97,5 +98,15 @@ public class HelloController {
         System.out.println("password: " + password);
         return "hello";
     }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/control/saveUser?username=john&password=1234
+    @RequestMapping("/saveUser")
+    public String saveUser(User user) {
+        System.out.println("username: " + user.getUsername());
+        System.out.println("password: " + user.getPassword());
+        System.out.println(user);
+        return "hello";
+    }
+    
     
 }
