@@ -90,4 +90,12 @@ public class HelloController {
         return "hello";
     }
     
+    // http://localhost:8080/SpringMVC_Web/mvc/control/save?username=john&password=1234
+    @RequestMapping("/save")
+    public String save(@RequestParam("username") String username, @RequestParam("password") String password) {
+        System.out.println("username: " + username);
+        System.out.println("password: " + password);
+        return "hello";
+    }
+    
 }
