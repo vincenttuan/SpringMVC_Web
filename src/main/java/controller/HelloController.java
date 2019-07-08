@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Map;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -143,6 +144,19 @@ public class HelloController {
         mv.addObject("bmi", map);
         mv.setViewName("show_bmi_map");
         return mv;
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/control/calcBMI4?height=170.1&weight=60.5
+    @RequestMapping("/calcBMI4")
+    public String calcBMI4(Model model, BMI bmi) {
+        double h = bmi.getHeight();
+        double w = bmi.getWeight();
+        double value = w / Math.pow(h/100, 2);
+        bmi.setValue(value);
+        
+        model.addAttribute("bmi", bmi);
+        
+        return "show_bmi";
     }
     
     
