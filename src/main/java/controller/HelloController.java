@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -122,6 +123,25 @@ public class HelloController {
         ModelAndView mv = new ModelAndView();
         mv.addObject("bmi", bmi);
         mv.setViewName("show_bmi");
+        return mv;
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/control/calcBMI3?height=170.1&weight=60.5
+    @RequestMapping("/calcBMI3")
+    public ModelAndView calcBMI3(Map<String, Object> map, BMI bmi) {
+        double h = bmi.getHeight();
+        double w = bmi.getWeight();
+        double value = w / Math.pow(h/100, 2);
+        bmi.setValue(value);
+        
+        map.put("bmi_1", bmi);
+        map.put("bmi_2", bmi);
+        map.put("bmi_3", bmi);
+        System.out.println(map);
+        
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("bmi", map);
+        mv.setViewName("show_bmi_map");
         return mv;
     }
     
