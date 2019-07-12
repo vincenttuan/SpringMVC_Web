@@ -17,5 +17,7 @@
         <property name="suffix" value=".jsp"/> 
     </bean>
     
+    <!-- 匯入 applicationContext_stock.xml -->
+    <import resource="applicationContext_stock.xml"/>
     
 </beans>
