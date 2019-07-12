@@ -44,6 +44,7 @@ public class StockController {
             .create();
         return gson.toJson(list);
     }
+    
     // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/update/stock/6?stockCode=3008&stockName=大立光
     @RequestMapping(value = "/update/stock/{id}")
     @ResponseBody
@@ -56,6 +57,32 @@ public class StockController {
         stock.setStockName(stockName);
         stockDao.update(stock);
         return "Update Stock ok";
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/delete/stock/7
+    @RequestMapping(value = "/delete/stock/{id}")
+    @ResponseBody
+    public String deleteStock(@PathVariable(value = "id") Integer id) {
+        Stock stock = stockDao.get(Stock.class, id);
+        if(stock == null) {
+            return "Delete Error ! (Not found)";
+        }
+        stockDao.delete(stock);
+        return "Delete Stock ok";
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/get/stock/6
+    @RequestMapping(value = "/get/stock/{id}", produces="application/json;charset=utf-8")
+    @ResponseBody
+    public String getStock(@PathVariable(value = "id") Integer id) {
+        Stock stock = stockDao.get(Stock.class, id);
+        if(stock == null) {
+            return "Get Error ! (Not found)";
+        }
+        Gson gson = new GsonBuilder()     
+            .excludeFieldsWithoutExposeAnnotation()
+            .create();
+        return gson.toJson(stock);
     }
     
 }
