@@ -1,13 +1,18 @@
 package stock.orm.model;
 
+import com.google.gson.annotations.Expose;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Stock implements java.io.Serializable {
-
+    
+    @Expose
     private Integer stockId;
+    @Expose
     private String stockCode;
+    @Expose
     private String stockName;
+    
     private Set<Fund> funds = new HashSet<>();
     
     public Stock() {

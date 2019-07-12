@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,10 @@ public class StockController {
     @ResponseBody
     public String queryStock() {
         List<Stock> list = stockDao.queryAll(Stock.class);
-        return new Gson().toJson(list);
+        Gson gson = new GsonBuilder()     
+            .excludeFieldsWithoutExposeAnnotation()
+            .create();
+        return gson.toJson(list);
     }
     // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/update/stock/6?stockCode=3008&stockName=大立光
     @RequestMapping(value = "/update/stock/{id}")
