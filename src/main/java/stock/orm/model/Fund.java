@@ -1,16 +1,23 @@
 package stock.orm.model;
 
+import com.google.gson.annotations.Expose;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Fund {
-
+    @Expose
     private Integer fundId;
+    @Expose
     private String name;
+    @Expose
     private String desc;
+    @Expose
     private Set<Stock> stocks = new HashSet<>();
+    @Expose
     private FundNet fundNet;
+    @Expose
     private Set<Trader> traders = new HashSet();
+    @Expose
     private Set<Investor> investors = new HashSet();
     
     public Fund() {

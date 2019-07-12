@@ -1,8 +1,13 @@
 package stock.orm.model;
 
+import com.google.gson.annotations.Expose;
+
 public class FundNet {
+    @Expose
     private Integer netId;
+    @Expose
     private Integer value;
+    
     private Fund fund;
 
     public FundNet() {

@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import stock.orm.dao.IFundDao;
 import stock.orm.dao.IStockDao;
+import stock.orm.model.Fund;
+import stock.orm.model.FundNet;
 import stock.orm.model.Stock;
 
 @Controller
@@ -19,11 +22,21 @@ import stock.orm.model.Stock;
 public class StockController {
     
     private IStockDao stockDao;
+    private IFundDao fundDao;
+    
+    private Gson gson = new GsonBuilder()     
+            .excludeFieldsWithoutExposeAnnotation()
+            .create();
     
     // 自動綁定
     @Autowired
     public void setStockDao(IStockDao stockDao) {
         this.stockDao = stockDao;
+    }
+    
+    @Autowired
+    public void setFundDao(IFundDao fundDao) {
+        this.fundDao = fundDao;
     }
     
     // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/add/stock?stockCode=2303&stockName=聯電
@@ -34,14 +47,35 @@ public class StockController {
         return "Add Stock ok";
     }
     
+    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/add/fund?fundName=A&fundDesc=科技&value=10
+    @RequestMapping(value = "/add/fund")
+    @ResponseBody
+    public String addFund(@RequestParam String fundName, @RequestParam String fundDesc, @RequestParam int value) {
+        // 建立新基金
+        Fund fund = new Fund(fundName, fundDesc);
+        // 建立基金淨值
+        FundNet fundNet = new FundNet();
+        fundNet.setValue(value);
+        fundNet.setFund(fund);
+        fund.setFundNet(fundNet);
+        fundDao.create(fund);
+        return "Add Fund ok";
+    }
+    
+    
     // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/query/stock
     @RequestMapping(value = "/query/stock", produces="application/json;charset=utf-8")
     @ResponseBody
     public String queryStock() {
         List<Stock> list = stockDao.queryAll(Stock.class);
-        Gson gson = new GsonBuilder()     
-            .excludeFieldsWithoutExposeAnnotation()
-            .create();
+        return gson.toJson(list);
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/query/fund
+    @RequestMapping(value = "/query/fund", produces="application/json;charset=utf-8")
+    @ResponseBody
+    public String queryFund() {
+        List<Fund> list = fundDao.queryAll(Fund.class);
         return gson.toJson(list);
     }
     
