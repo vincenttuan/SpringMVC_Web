@@ -20,9 +20,7 @@ public class FundNet {
     public void setNetId(Integer netId) {
         this.netId = netId;
     }
-
     
-
     public Integer getValue() {
         return value;
     }

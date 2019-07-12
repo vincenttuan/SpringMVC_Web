@@ -62,7 +62,6 @@ public class StockController {
         return "Add Fund ok";
     }
     
-    
     // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/query/stock
     @RequestMapping(value = "/query/stock", produces="application/json;charset=utf-8")
     @ResponseBody
@@ -91,6 +90,24 @@ public class StockController {
         stock.setStockName(stockName);
         stockDao.update(stock);
         return "Update Stock ok";
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/update/fund_stock/1?stockIds=6&stockIds=8
+    @RequestMapping(value = "/update/fund_stock/{id}")
+    @ResponseBody
+    public String updateFundStock(@PathVariable(value = "id") Integer id, @RequestParam int [] stockIds) {
+        Fund fund = fundDao.get(Fund.class, id);
+        if(fund == null) {
+            return "Update Error ! (Not found)";
+        }
+        for(int i : stockIds) {
+            Stock stock = stockDao.get(Stock.class, i);
+            if(stock != null) {
+                fund.getStocks().add(stock);
+            }
+        }
+        fundDao.update(fund);
+        return "Update Fund ok";
     }
     
     // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/delete/stock/7
