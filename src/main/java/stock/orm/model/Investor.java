@@ -1,9 +1,15 @@
 package stock.orm.model;
 
+import com.google.gson.annotations.Expose;
+
 public class Investor {
+    @Expose
     private Integer investorId;
+    @Expose
     private String name;
+    @Expose
     private Double units;
+    @Expose
     private Integer netValue;
     private Fund fund;
 
