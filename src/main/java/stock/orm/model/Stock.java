@@ -52,11 +52,5 @@ public class Stock implements java.io.Serializable {
     public void setFunds(Set<Fund> funds) {
         this.funds = funds;
     }
-
-    @Override
-    public String toString() {
-        return "Stock{" + "stockId=" + stockId + ", stockCode=" + stockCode + ", stockName=" + stockName + ", funds=" + funds + '}';
-    }
-
     
 }

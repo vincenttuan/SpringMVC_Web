@@ -77,13 +77,4 @@ public class Fund {
         this.investors = investors;
     }
 
-    @Override
-    public String toString() {
-        return "Fund{" + "fundId=" + fundId + ", name=" + name + ", desc=" + desc + ", stocks=" + stocks + ", fundNet=" + fundNet + ", traders=" + traders + ", investors=" + investors + '}';
-    }
-
-    
-    
-    
-
 }

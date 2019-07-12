@@ -36,11 +36,6 @@ public class Trader {
         this.fund = fund;
     }
 
-    @Override
-    public String toString() {
-        return "Trader{" + "traderId=" + traderId + ", name=" + name + ", fund=" + fund + '}';
-    }
-
     
     
 }

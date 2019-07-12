@@ -34,12 +34,6 @@ public class FundNet {
         this.fund = fund;
     }
 
-    @Override
-    public String toString() {
-        return "FundNet{" + "netId=" + netId + ", value=" + value + ", fund=" + fund + '}';
-    }
-
-    
     
     
 }
