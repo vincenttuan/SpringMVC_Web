@@ -1,7 +1,11 @@
 package stock.orm.model;
 
+import com.google.gson.annotations.Expose;
+
 public class Trader {
+    @Expose
     private Integer traderId;
+    @Expose
     private String name;
     private Fund fund;
 
