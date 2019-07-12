@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import stock.orm.dao.IFundDao;
+import stock.orm.dao.IInvestorDao;
 import stock.orm.dao.IStockDao;
 import stock.orm.dao.ITraderDao;
 import stock.orm.model.Fund;
 import stock.orm.model.FundNet;
+import stock.orm.model.Investor;
 import stock.orm.model.Stock;
 import stock.orm.model.Trader;
 
@@ -26,6 +28,7 @@ public class StockController {
     private IStockDao stockDao;
     private IFundDao fundDao;
     private ITraderDao traderDao;
+    private IInvestorDao investorDao;
     
     private Gson gson = new GsonBuilder()     
             .excludeFieldsWithoutExposeAnnotation()
@@ -45,6 +48,11 @@ public class StockController {
     @Autowired
     public void setTraderDao(ITraderDao traderDao) {
         this.traderDao = traderDao;
+    }
+    
+    @Autowired
+    public void setInvestorDao(IInvestorDao investorDao) {
+        this.investorDao = investorDao;
     }
     
     // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/add/stock?stockCode=2303&stockName=聯電
@@ -81,6 +89,21 @@ public class StockController {
         Trader trader = new Trader(traderName);
         trader.setFund(fund);
         traderDao.create(trader);
+        
+        return "Add Trader ok";
+    }
+    
+    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/add/investor?name=Mary&units=10000&&fundId=1
+    @RequestMapping(value = "/add/investor")
+    @ResponseBody
+    public String addInvestor(Investor investor, @RequestParam int fundId) {
+        Fund fund = fundDao.get(Fund.class, fundId);
+        if(fund == null) {
+            return "addInvestor Error, No fund";
+        }
+        investor.setNetValue(fund.getFundNet().getValue());
+        investor.setFund(fund);
+        investorDao.create(investor);
         
         return "Add Trader ok";
     }
