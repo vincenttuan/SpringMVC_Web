@@ -146,7 +146,7 @@
                     getById(id);
                 });
                 
-                $("#stockTbody").on('click', 'td:nth-child(2)', function () {
+                $("#stockTbody").on('dblclick', 'td:nth-child(2)', function () {
                     var symbol = $(this).text() + '.TW';
                     console.log(symbol);
                     drawChart();
