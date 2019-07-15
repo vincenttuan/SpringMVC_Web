@@ -10,15 +10,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
             // google chart init load
-            google.charts.load('current', {'packages':['corechart']});
-            
+            google.charts.load('current', {'packages': ['corechart']});
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Mon', 20, 28, 38, 45],
+                    ['Tue', 31, 38, 55, 66],
+                    ['Wed', 50, 55, 77, 80],
+                    ['Thu', 77, 77, 66, 50],
+                    ['Fri', 68, 66, 22, 15]
+                            // Treat first row as data as well.
+                ], true);
+
+                var options = {
+                    legend: 'none'
+                };
+
+                var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+
+                chart.draw(data, options);
+            }
+
             String.prototype.format = function () {
                 var args = arguments;
                 return this.replace(/\{(\d+)\}/g, function (m, i, o, n) {
                     return args[i];
                 });
             };
-            
+
             function query() {
                 $.ajax({
                     url: './mvc/stock_controller/query/stock',
@@ -38,7 +56,7 @@
                     }
                 });
             }
-            
+
             function add() {
                 console.log($('#stock_form').serialize());
                 $.ajax({
@@ -54,7 +72,7 @@
                     }
                 });
             }
-            
+
             function getById(id) {
                 $.ajax({
                     url: './mvc/stock_controller/get/stock/' + id,
@@ -70,7 +88,7 @@
                     }
                 });
             }
-            
+
             function update() {
                 console.log($('#stock_form').serialize());
                 var id = $('#stock_form').find('input[name="stockId"]').val();
@@ -88,7 +106,7 @@
                     }
                 });
             }
-            
+
             function deleteById(id) {
                 $.ajax({
                     url: './mvc/stock_controller/delete/stock/' + id,
@@ -102,26 +120,26 @@
                     }
                 });
             }
-            
+
             $(document).ready(function () {
                 $("#query_button").click(function () {
                     query();
                 });
-                
+
                 $("#post_button").click(function () {
                     add();
                 });
-                
+
                 $("#update_button").click(function () {
                     update();
                 });
-                
+
                 $("#delete_button").click(function () {
                     var id = $('#stock_form').find('input[name="stockId"]').val();
                     console.log(id);
                     deleteById(id);
                 });
-                
+
                 $("#stockTbody").on('click', 'td:nth-child(1)', function () {
                     var id = $(this).text();
                     console.log(id);
@@ -170,7 +188,7 @@
             </td>
             <td valign="top">
                 <!-- chart -->
-                
+                <div id="chart_div" style="width: 900px; height: 500px;"></div>
             </td>
         </table>
 
