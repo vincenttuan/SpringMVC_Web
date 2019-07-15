@@ -21,6 +21,13 @@
                     type: 'GET',
                     success: function (data, status) {
                         console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        var html = '';
+                        // jQuery 分析 Json[] 語法
+                        $.each(data, function (i, stock) {
+                            html += '<tr><td>{0}</td><td>{1}</td><td>{2}</td></tr>'.format(stock.stockId, stock.stockCode, stock.stockName);
+                        });
+                        $("#stockTbody").empty();
+                        $("#stockTbody").append(html);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(jqXHR);
