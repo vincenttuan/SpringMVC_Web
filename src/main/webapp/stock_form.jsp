@@ -51,6 +51,22 @@
                 });
             }
             
+            function getById(id) {
+                $.ajax({
+                    url: './mvc/stock_controller/get/stock/' + id,
+                    type: 'GET',
+                    success: function (data, status) {
+                        console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        for (var i in data) {
+                            $('#stock_form').find('input[name="' + i + '"]').val(data[i]);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                    }
+                });
+            }
+            
             $(document).ready(function () {
                 $("#query_button").click(function () {
                     query();
@@ -63,6 +79,7 @@
                 $("#stockTbody").on('click', 'td:nth-child(1)', function () {
                     var id = $(this).text();
                     console.log(id);
+                    getById(id);
                 });
 
                 $("#fund_span").on('click', function () {
