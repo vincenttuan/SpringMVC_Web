@@ -67,6 +67,24 @@
                 });
             }
             
+            function update() {
+                console.log($('#stock_form').serialize());
+                var id = $('#stock_form').find('input[name="stockId"]').val();
+                console.log(id);
+                $.ajax({
+                    url: './mvc/stock_controller/update/stock/' + id,
+                    type: 'POST',
+                    data: $('#stock_form').serialize(),
+                    success: function (data, status) {
+                        console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        query();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                    }
+                });
+            }
+            
             $(document).ready(function () {
                 $("#query_button").click(function () {
                     query();
@@ -74,6 +92,10 @@
                 
                 $("#post_button").click(function () {
                     add();
+                });
+                
+                $("#update_button").click(function () {
+                    update();
                 });
                 
                 $("#stockTbody").on('click', 'td:nth-child(1)', function () {
