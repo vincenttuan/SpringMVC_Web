@@ -14,11 +14,23 @@
                     return args[i];
                 });
             };
-
+            
+            function query() {
+                $.ajax({
+                    url: './mvc/stock_controller/query/stock',
+                    type: 'GET',
+                    success: function (data, status) {
+                        console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                    }
+                });
+            }
             
             $(document).ready(function () {
                 $("#query_button").click(function () {
-                    
+                    query();
                 });
                 
                 $("#stockTbody").on('click', 'td:nth-child(1)', function () {
