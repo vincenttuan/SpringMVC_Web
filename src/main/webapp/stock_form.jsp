@@ -24,7 +24,7 @@
                         var html = '';
                         // jQuery 分析 Json[] 語法
                         $.each(data, function (i, stock) {
-                            html += '<tr><td>{0}</td><td>{1}</td><td>{2}</td></tr>'.format(stock.stockId, stock.stockCode, stock.stockName);
+                            html += '<tr><td style="cursor:hand" title="按我一下">{0}</td><td>{1}</td><td>{2}</td></tr>'.format(stock.stockId, stock.stockCode, stock.stockName);
                         });
                         $("#stockTbody").empty();
                         $("#stockTbody").append(html);
@@ -61,7 +61,8 @@
                 });
                 
                 $("#stockTbody").on('click', 'td:nth-child(1)', function () {
-                    
+                    var id = $(this).text();
+                    console.log(id);
                 });
 
                 $("#fund_span").on('click', function () {
