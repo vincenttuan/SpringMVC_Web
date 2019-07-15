@@ -17,4 +17,25 @@ public class FundDao extends BaseDao implements IFundDao {
         return list.size() > 0 ? list.get(0) : null;
     }
     
+    // 清除關聯檔
+    @Override
+    @Transactional
+    public void deleteStockFundRef(int fundId) {
+        String sql = "Delete from STOCK_FUND Where fund_id = " + fundId;
+        Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql);
+        q.executeUpdate();
+    }
+    
+    // 設定關聯檔
+    @Override
+    @Transactional
+    public void appendStockFundRef(int fundId, int... stockIds) {
+        String sql = "Insert Into STOCK_FUND(fund_id, stock_id) Values(%d, %d)";
+        for(int stockId : stockIds) {
+            String add_sql = String.format(sql, fundId, stockId);
+            Query q = getSessionFactory().getCurrentSession().createSQLQuery(add_sql);
+            q.executeUpdate();
+        }
+    }
+    
 }

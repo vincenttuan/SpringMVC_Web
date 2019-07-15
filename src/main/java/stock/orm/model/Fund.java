@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Fund {
+
     @Expose
     private Integer fundId;
     @Expose
@@ -17,7 +18,7 @@ public class Fund {
     private FundNet fundNet;
     @Expose
     private Set<Trader> traders = new HashSet();
-    @Expose
+    
     private Set<Investor> investors = new HashSet();
     
     public Fund() {
@@ -83,5 +84,14 @@ public class Fund {
     public void setInvestors(Set<Investor> investors) {
         this.investors = investors;
     }
+
+    @Override
+    public String toString() {
+        return "Fund{" + "fundId=" + fundId + ", name=" + name + ", desc=" + desc + ", stocks=" + stocks + ", fundNet=" + fundNet + ", traders=" + traders + ", investors=" + investors + '}';
+    }
+
+    
+    
+    
 
 }

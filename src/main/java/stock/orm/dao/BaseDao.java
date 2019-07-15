@@ -38,7 +38,8 @@ public abstract class BaseDao<T> implements IBaseDao {
     @Override
     @Transactional
     public void update(Object obj) {
-        sessionFactory.getCurrentSession().update(obj);
+        //sessionFactory.getCurrentSession().refresh(obj);
+        sessionFactory.getCurrentSession().saveOrUpdate(obj);
     }
 
     @Override
@@ -46,5 +47,6 @@ public abstract class BaseDao<T> implements IBaseDao {
     public void delete(Object obj) {
         sessionFactory.getCurrentSession().delete(obj);
     }
+    
     
 }

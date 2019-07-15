@@ -7,6 +7,7 @@ public class Trader {
     private Integer traderId;
     @Expose
     private String name;
+    
     private Fund fund;
 
     public Trader() {
@@ -38,6 +39,11 @@ public class Trader {
 
     public void setFund(Fund fund) {
         this.fund = fund;
+    }
+
+    @Override
+    public String toString() {
+        return "Trader{" + "traderId=" + traderId + ", name=" + name + ", fund=" + fund + '}';
     }
 
     

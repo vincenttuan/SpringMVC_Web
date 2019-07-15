@@ -19,4 +19,5 @@ public interface IBaseDao {
     // 查詢多筆
     public <T extends Object> List<T> queryAll(Class<T> cla);
     
+    
 }

@@ -1,9 +1,11 @@
-package controller;
+package com.ssh.springmvc.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,45 +57,48 @@ public class StockController {
         this.investorDao = investorDao;
     }
     
-    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/add/stock?stockCode=2303&stockName=聯電
+    // /mvc/stock_controller/add/stock?stockCode=2303&stockName=聯電
     @RequestMapping(value = "/add/stock")
     @ResponseBody
-    public String addStock(@RequestParam String stockCode, @RequestParam String stockName) {
-        stockDao.create(new Stock(stockCode, stockName));
+    public String addStock(Stock stock) {
+        stockDao.create(stock);
         return "Add Stock ok";
     }
     
-    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/add/fund?fundName=A&fundDesc=科技&value=10
+    // /mvc/stock_controller/add/fund?name=A&desc=科技&value=10
     @RequestMapping(value = "/add/fund")
     @ResponseBody
-    public String addFund(@RequestParam String fundName, @RequestParam String fundDesc, @RequestParam int value) {
-        // 建立新基金
-        Fund fund = new Fund(fundName, fundDesc);
+    public String addFund(Fund fund, @RequestParam int value, @RequestParam String traderName) {
         // 建立基金淨值
         FundNet fundNet = new FundNet();
         fundNet.setValue(value);
         fundNet.setFund(fund);
         fund.setFundNet(fundNet);
+        
+        Trader trader = new Trader(traderName);
+        fund.getTraders().add(trader);
+        
         fundDao.create(fund);
+        
+        
         return "Add Fund ok";
     }
     
-    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/add/trader?traderName=John&fundId=1
+    // /mvc/stock_controller/add/trader?name=John&fundId=1
     @RequestMapping(value = "/add/trader")
     @ResponseBody
-    public String addTrader(@RequestParam String traderName, @RequestParam int fundId) {
+    public String addTrader(Trader trader, @RequestParam int fundId) {
         Fund fund = fundDao.get(Fund.class, fundId);
         if(fund == null) {
             return "addTrader Error, No fund";
         }
-        Trader trader = new Trader(traderName);
         trader.setFund(fund);
         traderDao.create(trader);
         
         return "Add Trader ok";
     }
     
-    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/add/investor?name=Mary&units=10000&&fundId=1
+    // /mvc/stock_controller/add/investor?name=Mary&units=10000&&fundId=1
     @RequestMapping(value = "/add/investor")
     @ResponseBody
     public String addInvestor(Investor investor, @RequestParam int fundId) {
@@ -110,7 +115,7 @@ public class StockController {
     
     //-----------------------------------------------------------------------------------------------------
     
-    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/query/stock
+    // /mvc/stock_controller/query/stock
     @RequestMapping(value = "/query/stock", produces="application/json;charset=utf-8")
     @ResponseBody
     public String queryStock() {
@@ -118,7 +123,7 @@ public class StockController {
         return gson.toJson(list);
     }
     
-    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/query/fund
+    // /mvc/stock_controller/query/fund
     @RequestMapping(value = "/query/fund", produces="application/json;charset=utf-8")
     @ResponseBody
     public String queryFund() {
@@ -126,13 +131,36 @@ public class StockController {
         return gson.toJson(list);
     }
     
-    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/update/stock/6?stockCode=3008&stockName=大立光
+    @RequestMapping(value = "/query/trader", produces="application/json;charset=utf-8")
+    @ResponseBody
+    public String queryTrader() {
+        List<Trader> list = traderDao.queryAll(Trader.class);
+        return gson.toJson(list);
+    }
+    
+    @RequestMapping(value = "/query/investor", produces="application/json;charset=utf-8")
+    @ResponseBody
+    public String queryInvestor() {
+        List<Investor> list = investorDao.queryAll(Investor.class);
+        return gson.toJson(list);
+    }
+    
+    @RequestMapping(value = "/query/investor/{name}", produces="application/json;charset=utf-8")
+    @ResponseBody
+    public String queryInvestorByName(@PathVariable(value = "name") String name) {
+        List<Investor> list = investorDao.queryByName(name);
+        return gson.toJson(list);
+    }
+    
+    //-----------------------------------------------------------------------------------------------------
+        
+    // /mvc/stock_controller/update/stock/6?stockCode=3008&stockName=大立光
     @RequestMapping(value = "/update/stock/{id}")
     @ResponseBody
     public String updateStock(@PathVariable(value = "id") Integer id, @RequestParam String stockCode, @RequestParam String stockName) {
         Stock stock = stockDao.get(Stock.class, id);
         if(stock == null) {
-            return "Update Error ! (Not found)";
+            return "Update Stock Error ! (Not found)";
         }
         stock.setStockCode(stockCode);
         stock.setStockName(stockName);
@@ -140,25 +168,41 @@ public class StockController {
         return "Update Stock ok";
     }
     
-    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/update/fund_stock/1?stockIds=6&stockIds=8
+    @RequestMapping(value = "/update/fund/{id}")
+    @ResponseBody
+    public String updateFund(@PathVariable(value = "id") Integer id, Fund ufund, @RequestParam int value, @RequestParam String traderName) {
+        Fund fund = fundDao.get(Fund.class, id);
+        if(fund == null) {
+            return "Update Fund Error ! (Not found)";
+        }
+        fund.setName(ufund.getName());
+        fund.setDesc(ufund.getDesc());
+        fund.getFundNet().setValue(value);
+        fund.getTraders().iterator().next().setName(traderName);
+        fundDao.update(fund);
+        return "Update Fund ok ! ";
+    }
+    
+    // /mvc/stock_controller/update/fund_stock/1?stockIds=6&stockIds=8
     @RequestMapping(value = "/update/fund_stock/{id}")
     @ResponseBody
     public String updateFundStock(@PathVariable(value = "id") Integer id, @RequestParam int [] stockIds) {
+        // 清除關聯檔
+        fundDao.deleteStockFundRef(id);
+        
         Fund fund = fundDao.get(Fund.class, id);
         if(fund == null) {
-            return "Update Error ! (Not found)";
+            return "Update FundStock Error ! (Not found)";
         }
-        for(int i : stockIds) {
-            Stock stock = stockDao.get(Stock.class, i);
-            if(stock != null) {
-                fund.getStocks().add(stock);
-            }
-        }
-        fundDao.update(fund);
-        return "Update Fund ok";
+        
+        fundDao.appendStockFundRef(id, stockIds);
+        
+        return "Update FundStock ok";
     }
     
-    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/delete/stock/7
+    //-----------------------------------------------------------------------------------------------------
+    
+    // /mvc/stock_controller/delete/stock/7
     @RequestMapping(value = "/delete/stock/{id}")
     @ResponseBody
     public String deleteStock(@PathVariable(value = "id") Integer id) {
@@ -170,18 +214,33 @@ public class StockController {
         return "Delete Stock ok";
     }
     
-    // http://localhost:8080/SpringMVC_Web/mvc/stock_controller/get/stock/6
+    //-----------------------------------------------------------------------------------------------------
+    
+    // /mvc/stock_controller/get/stock/6
     @RequestMapping(value = "/get/stock/{id}", produces="application/json;charset=utf-8")
     @ResponseBody
     public String getStock(@PathVariable(value = "id") Integer id) {
         Stock stock = stockDao.get(Stock.class, id);
         if(stock == null) {
-            return "Get Error ! (Not found)";
+            return "Get Stock Error ! (Not found)";
         }
         Gson gson = new GsonBuilder()     
             .excludeFieldsWithoutExposeAnnotation()
             .create();
         return gson.toJson(stock);
+    }
+    
+    @RequestMapping(value = "/get/fund/{id}", produces="application/json;charset=utf-8")
+    @ResponseBody
+    public String getFund(@PathVariable(value = "id") Integer id) {
+        Fund fund = fundDao.get(Fund.class, id);
+        if(fund == null) {
+            return "Get Fund Error ! (Not found)";
+        }
+        Gson gson = new GsonBuilder()     
+            .excludeFieldsWithoutExposeAnnotation()
+            .create();
+        return gson.toJson(fund);
     }
     
 }

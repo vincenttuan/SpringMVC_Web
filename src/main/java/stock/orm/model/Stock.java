@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Stock implements java.io.Serializable {
-    
+
     @Expose
     private Integer stockId;
     @Expose
@@ -57,5 +57,11 @@ public class Stock implements java.io.Serializable {
     public void setFunds(Set<Fund> funds) {
         this.funds = funds;
     }
+
+    @Override
+    public String toString() {
+        return "Stock{" + "stockId=" + stockId + ", stockCode=" + stockCode + ", stockName=" + stockName + ", funds=" + funds + '}';
+    }
+
     
 }

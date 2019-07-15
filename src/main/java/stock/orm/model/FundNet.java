@@ -7,7 +7,6 @@ public class FundNet {
     private Integer netId;
     @Expose
     private Integer value;
-    
     private Fund fund;
 
     public FundNet() {
@@ -20,7 +19,9 @@ public class FundNet {
     public void setNetId(Integer netId) {
         this.netId = netId;
     }
+
     
+
     public Integer getValue() {
         return value;
     }
@@ -37,6 +38,12 @@ public class FundNet {
         this.fund = fund;
     }
 
+    @Override
+    public String toString() {
+        return "FundNet{" + "netId=" + netId + ", value=" + value + ", fund=" + fund + '}';
+    }
+
+    
     
     
 }

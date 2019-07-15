@@ -11,6 +11,7 @@ public class Investor {
     private Double units;
     @Expose
     private Integer netValue;
+    @Expose
     private Fund fund;
 
     public Investor() {
