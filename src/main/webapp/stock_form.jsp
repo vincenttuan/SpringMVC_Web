@@ -85,6 +85,20 @@
                 });
             }
             
+            function deleteById(id) {
+                $.ajax({
+                    url: './mvc/stock_controller/delete/stock/' + id,
+                    type: 'GET',
+                    success: function (data, status) {
+                        console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        query();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                    }
+                });
+            }
+            
             $(document).ready(function () {
                 $("#query_button").click(function () {
                     query();
@@ -96,6 +110,12 @@
                 
                 $("#update_button").click(function () {
                     update();
+                });
+                
+                $("#delete_button").click(function () {
+                    var id = $('#stock_form').find('input[name="stockId"]').val();
+                    console.log(id);
+                    deleteById(id);
                 });
                 
                 $("#stockTbody").on('click', 'td:nth-child(1)', function () {
