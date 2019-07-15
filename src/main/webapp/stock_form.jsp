@@ -46,7 +46,7 @@
                         var html = '';
                         // jQuery 分析 Json[] 語法
                         $.each(data, function (i, stock) {
-                            html += '<tr><td style="cursor:hand" title="按我一下">{0}</td><td>{1}</td><td>{2}</td></tr>'.format(stock.stockId, stock.stockCode, stock.stockName);
+                            html += '<tr><td style="cursor:hand" title="按我一下">{0}</td><td style="cursor:hand" title="按我二下">{1}</td><td>{2}</td></tr>'.format(stock.stockId, stock.stockCode, stock.stockName);
                         });
                         $("#stockTbody").empty();
                         $("#stockTbody").append(html);
@@ -144,6 +144,12 @@
                     var id = $(this).text();
                     console.log(id);
                     getById(id);
+                });
+                
+                $("#stockTbody").on('click', 'td:nth-child(2)', function () {
+                    var symbol = $(this).text() + '.TW';
+                    console.log(symbol);
+                    drawChart();
                 });
 
                 $("#fund_span").on('click', function () {
