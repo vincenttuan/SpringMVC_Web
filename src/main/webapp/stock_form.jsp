@@ -11,23 +11,54 @@
         <script>
             // google chart init load
             google.charts.load('current', {'packages': ['corechart']});
-            function drawChart() {
-                var data = google.visualization.arrayToDataTable([
-                    ['Mon', 20, 28, 38, 45],
-                    ['Tue', 31, 38, 55, 66],
-                    ['Wed', 50, 55, 77, 80],
-                    ['Thu', 77, 77, 66, 50],
-                    ['Fri', 68, 66, 22, 15]
-                            // Treat first row as data as well.
-                ], true);
-
+            function drawChart(data, title) {
+                
                 var options = {
-                    legend: 'none'
+                    title: title,
+                    vAxis: {title: 'Price'},
+                    hAxis: {title: 'Day'},
+                    legend: 'none',
+                    titleTextStyle: {
+                        fontSize: 20
+                    },
+                    seriesType: "candlesticks",
+                    series: {
+                        1: {type: "line"}
+                    }
                 };
 
                 var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
 
                 chart.draw(data, options);
+            }
+            
+            function pushData(data) {
+                var dataArray = [];
+                $.each(data, function (i, s) {
+                    var d = s.date.month + '/' + s.date.dayOfMonth
+                    var high = s.high;
+                    var close = s.close;
+                    var open = s.open;
+                    var low = s.low;
+                    var avg = (high + close + open + low) / 4;
+                    dataArray[i] = [d, high, close, open, low, avg]; // 高收開低
+                });
+                var drawData = google.visualization.arrayToDataTable(dataArray, true);
+                drawChart(drawData, data[0].symbol);
+            }
+            
+            function getStockHistQuotes(symbol) {
+                $.ajax({
+                    url: './mvc/yahoo_controller/get/stock/' + symbol,
+                    type: 'GET',
+                    success: function (data, status) {
+                        console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        pushData(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                    }
+                });
             }
 
             String.prototype.format = function () {
@@ -88,6 +119,8 @@
                     }
                 });
             }
+            
+            
 
             function update() {
                 console.log($('#stock_form').serialize());
@@ -149,7 +182,7 @@
                 $("#stockTbody").on('dblclick', 'td:nth-child(2)', function () {
                     var symbol = $(this).text();
                     console.log(symbol);
-                    drawChart();
+                    getStockHistQuotes(symbol);
                 });
 
                 $("#fund_span").on('click', function () {
