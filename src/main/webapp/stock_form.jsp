@@ -35,9 +35,29 @@
                 });
             }
             
+            function add() {
+                console.log($('#stock_form').serialize());
+                $.ajax({
+                    url: './mvc/stock_controller/add/stock',
+                    type: 'POST',
+                    data: $('#stock_form').serialize(),
+                    success: function (data, status) {
+                        console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                        query();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                    }
+                });
+            }
+            
             $(document).ready(function () {
                 $("#query_button").click(function () {
                     query();
+                });
+                
+                $("#post_button").click(function () {
+                    add();
                 });
                 
                 $("#stockTbody").on('click', 'td:nth-child(1)', function () {
@@ -62,7 +82,6 @@
                 <form id="stock_form" class="pure-form" method="post" action="">
                     <fieldset>
                         <legend><b>Stock</b> | <span id="fund_span" style="cursor:hand">Fund</span>| <span id="investor_span" style="cursor:hand">Investor</span></legend>
-                        <input type="hidden" name="_method" id="_method" value="PUT"/>
                         <input type="text" placeholder="序號" name="stockId" value="" readonly><p/>
                         <input type="text" placeholder="請輸入股票代號" name="stockCode" value=""><p/>
                         <input type="text" placeholder="請輸入股票名稱" name="stockName" value=""><p/>
