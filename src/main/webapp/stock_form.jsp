@@ -147,7 +147,7 @@
                 });
                 
                 $("#stockTbody").on('dblclick', 'td:nth-child(2)', function () {
-                    var symbol = $(this).text() + '.TW';
+                    var symbol = $(this).text();
                     console.log(symbol);
                     drawChart();
                 });
