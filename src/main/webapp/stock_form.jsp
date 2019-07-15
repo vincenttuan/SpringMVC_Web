@@ -186,10 +186,10 @@
                 });
 
                 $("#fund_span").on('click', function () {
-                    //window.location.href = 'fund_form.jsp';
+                    window.location.href = 'fund_form.jsp';
                 });
                 $("#investor_span").on('click', function () {
-                    //window.location.href = 'investor_form.jsp';
+                    window.location.href = 'investor_form.jsp';
                 });
 
             });
