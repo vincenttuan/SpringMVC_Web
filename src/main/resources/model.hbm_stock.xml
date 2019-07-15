@@ -88,6 +88,7 @@
         </id> 
         <property name="name" column="name"/> 
         <many-to-one name="fund" 
+                     lazy="false"
                      column="fund_id" 
                      class="stock.orm.model.Fund"
                      cascade="save-update"
@@ -103,6 +104,7 @@
         <property name="units" column="units"/> 
         <property name="netValue" column="netValue"/> 
         <many-to-one name="fund" 
+                     lazy="false"
                      column="fund_id" 
                      class="stock.orm.model.Fund"
                      cascade="save-update"
