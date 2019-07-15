@@ -9,7 +9,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
-            // google init load
+            // google chart init load
             google.charts.load('current', {'packages':['corechart']});
             
             String.prototype.format = function () {
