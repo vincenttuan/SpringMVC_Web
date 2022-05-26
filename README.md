@@ -5,6 +5,7 @@
 1. pom.xml 加入 sqlite 依賴
 2. 建立 source folder -> db
 3. 撰寫一個建立資裡庫的 servlet
+
   @WebServlet("/servlet/create/db")
   public class CreateDBServlet extends HttpServlet {
 
