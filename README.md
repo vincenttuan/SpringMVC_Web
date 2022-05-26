@@ -2,12 +2,12 @@
 2019 東認 SpringMVC Web
 
 # 在 JavaWeb 中建構 sqlite 資料庫
-1. pom.xml 加入以下依賴
-  &lt;dependency&gt;
-  &lt;groupId&gt;org.xerial&lt;/groupId&gt;
-  &lt;artifactId&gt;sqlite-jdbc&lt;/artifactId&gt;
-  &lt;version&gt;3.36.0.3&lt;/version&gt;
-  &lt;/dependency&gt;
+1. pom.xml 加入以下依賴<br>
+  &lt;dependency&gt;<br>
+  &lt;groupId&gt;org.xerial&lt;/groupId&gt;<br>
+  &lt;artifactId&gt;sqlite-jdbc&lt;/artifactId&gt;<br>
+  &lt;version&gt;3.36.0.3&lt;/version&gt;<br>
+  &lt;/dependency&gt;<br>
 
 2. 建立 source folder -> db
 
