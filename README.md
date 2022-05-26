@@ -6,6 +6,7 @@
 2. 建立 source folder -> db
 3. 撰寫一個建立資裡庫的 servlet
 
+<pre>
   @WebServlet("/servlet/create/db")
   public class CreateDBServlet extends HttpServlet {
 
@@ -38,3 +39,4 @@
     }
 
   }
+</pre>
