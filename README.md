@@ -2,11 +2,7 @@
 2019 東認 SpringMVC Web
 
 # 在 JavaWeb 中建構 sqlite 資料庫
-1. pom.xml 加入以下依賴
 
-2. 建立 source folder -> db
-
-3. 撰寫一個 sevlet 建立資料庫
   @WebServlet("/servlet/create/db")
   public class CreateDBServlet extends HttpServlet {
 
