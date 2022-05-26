@@ -5,9 +5,9 @@
 1. pom.xml 加入 sqlite 依賴
 <pre>
   &lt;dependency>
-			&lt;groupId>org.xerial&lt;/groupId>
-			&lt;artifactId>sqlite-jdbc&lt;/artifactId>
-			&lt;version>3.36.0.3&lt;/version>
+    &lt;groupId>org.xerial&lt;/groupId>
+    &lt;artifactId>sqlite-jdbc&lt;/artifactId>
+    &lt;version>3.36.0.3&lt;/version>
   &lt;/dependency>
 </pre>
 2. 建立 source folder -> db
