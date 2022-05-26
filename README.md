@@ -3,6 +3,11 @@
 
 # 在 JavaWeb 中建構 sqlite 資料庫
 1. pom.xml 加入以下依賴
+ <dependency>
+   <groupId>org.xerial</groupId>
+   <artifactId>sqlite-jdbc</artifactId>
+   <version>3.36.0.3</version>
+ </dependency>
 
 2. 建立 source folder -> db
 
